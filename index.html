@@ -674,21 +674,27 @@
         .page-two.show .school-info,
         .page-two.show .future-message,
         .page-two.show .engineer-image,
-        .page-two.show .details-button {
+        .page-two.show .scroll-down {
 
             animation-play-state: running;
         }
 
 
         /* ==================================================
-           زر التفاصيل
+           مرر للأسفل
         ================================================== */
 
-        .details-button {
+        .scroll-down {
 
             margin-top: 30px;
 
             text-align: center;
+
+            font-family: "Aref Ruqaa", serif;
+
+            font-size: 20px;
+
+            color: #6f5745;
 
             opacity: 0;
 
@@ -701,37 +707,27 @@
         }
 
 
-        .details-button a {
+        .scroll-down span {
 
-            display: inline-block;
+            display: block;
 
-            font-family: "Aref Ruqaa", serif;
+            font-size: 28px;
 
-            font-size: 20px;
+            margin-top: 2px;
 
-            color: #6f5745;
-
-            text-decoration: none;
-
-            border: 1px solid #b49a7a;
-
-            border-radius: 30px;
-
-            padding: 4px 28px 7px;
-
-            background: rgba(255, 252, 247, 0.35);
-
-            transition: 0.3s ease;
-
-            cursor: pointer;
+            animation: arrowDown 1.3s ease-in-out infinite;
         }
 
 
-        .details-button a:hover {
+        @keyframes arrowDown {
 
-            transform: translateY(-2px);
+            0%, 100% {
+                transform: translateY(0);
+            }
 
-            background: rgba(180, 154, 122, 0.15);
+            50% {
+                transform: translateY(8px);
+            }
         }
 
 
@@ -1556,6 +1552,20 @@
             }
 
 
+            .scroll-down {
+
+                margin-top: 25px;
+
+                font-size: 18px;
+            }
+
+
+            .scroll-down span {
+
+                font-size: 26px;
+            }
+
+
             .engineer-image {
 
                 width: 250px;
@@ -1665,7 +1675,7 @@
 
                  padding-left: 120px;
 
-                 transform: translateX(-120px);
+                 transform: translateX(-60px);
             }
 
 
@@ -1760,7 +1770,9 @@
                 href="#page-two"
                 onclick="showPageTwo()"
             >
+
                 انقر هنا
+
             </a>
 
         </div>
@@ -1858,16 +1870,13 @@
             </div>
 
 
-            <!-- زر التفاصيل -->
+            <!-- مرر للأسفل -->
 
-            <div class="details-button">
+            <div class="scroll-down">
 
-                <a
-                    href="#page-three"
-                    onclick="showPageThree(event)"
-                >
-                    التفاصيل
-                </a>
+              مرر للأسفل لمعرفة التفاصيل
+
+                <span>↓</span>
 
             </div>
 
@@ -2149,7 +2158,9 @@ function showPageTwo() {
 
 function showPageThree(event) {
 
-    event.preventDefault();
+    if (event) {
+        event.preventDefault();
+    }
 
 
     const pageThree =
@@ -2177,6 +2188,69 @@ function showPageThree(event) {
     }, 100);
 
 }
+
+
+
+/* ==================================================
+   السحب بين الصفحة الثانية والثالثة في الموبايل
+================================================== */
+
+let touchStartY = 0;
+
+
+document.addEventListener("touchstart", function(event) {
+
+    touchStartY = event.touches[0].clientY;
+
+}, { passive: true });
+
+
+
+document.addEventListener("touchend", function(event) {
+
+    const pageTwo = document.getElementById("page-two");
+    const pageThree = document.getElementById("page-three");
+
+    const touchEndY = event.changedTouches[0].clientY;
+
+    const difference = touchEndY - touchStartY;
+
+
+    /* سحب للأعلى من الصفحة الثانية */
+
+    if (
+        pageTwo.classList.contains("show") &&
+        difference < -60
+    ) {
+
+        showPageThree();
+
+        return;
+
+    }
+
+
+    /* سحب للأسفل من الصفحة الثالثة */
+
+    if (
+        pageThree.classList.contains("show-content") &&
+        difference > 80
+    ) {
+
+        const pageTwo =
+            document.getElementById("page-two");
+
+        pageTwo.scrollIntoView({
+
+            behavior: "smooth",
+
+            block: "start"
+
+        });
+
+    }
+
+}, { passive: true });
 
 
 
