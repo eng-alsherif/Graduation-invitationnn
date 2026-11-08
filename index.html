@@ -775,7 +775,7 @@
 
             padding: 0 30px;
 
-            transform: translateY(-50px);
+            transform: translateY(-10px);
         }
 
 
@@ -1694,6 +1694,30 @@
 
         }
 
+        .scroll-down {
+    margin-top: 35px;
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+    font-family: 'Amiri', serif;
+    animation: scrollBounce 1.5s infinite;
+}
+
+.scroll-down span {
+    display: block;
+    font-size: 24px;
+    margin-top: 3px;
+}
+
+@keyframes scrollBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(7px);
+    }
+}
+
     </style>
 
 </head>
@@ -1869,16 +1893,10 @@
 
             <!-- زر التفاصيل -->
 
-            <div class="details-button">
-
-                <a
-                    href="#page-three"
-                    onclick="showPageThree(event)"
-                >
-                    التفاصيل
-                </a>
-
-            </div>
+          <div class="scroll-down">
+ مرر للأسفل لمعرفة التفاصيل
+    <span>↓</span>
+</div>
 
 
         </div>
