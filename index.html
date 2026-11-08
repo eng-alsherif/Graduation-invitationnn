@@ -674,27 +674,21 @@
         .page-two.show .school-info,
         .page-two.show .future-message,
         .page-two.show .engineer-image,
-        .page-two.show .scroll-down {
+        .page-two.show .details-button {
 
             animation-play-state: running;
         }
 
 
         /* ==================================================
-           مرر للأسفل
+           زر التفاصيل
         ================================================== */
 
-        .scroll-down {
+        .details-button {
 
             margin-top: 30px;
 
             text-align: center;
-
-            font-family: "Aref Ruqaa", serif;
-
-            font-size: 20px;
-
-            color: #6f5745;
 
             opacity: 0;
 
@@ -707,27 +701,37 @@
         }
 
 
-        .scroll-down span {
+        .details-button a {
 
-            display: block;
+            display: inline-block;
 
-            font-size: 28px;
+            font-family: "Aref Ruqaa", serif;
 
-            margin-top: 2px;
+            font-size: 20px;
 
-            animation: arrowDown 1.3s ease-in-out infinite;
+            color: #6f5745;
+
+            text-decoration: none;
+
+            border: 1px solid #b49a7a;
+
+            border-radius: 30px;
+
+            padding: 4px 28px 7px;
+
+            background: rgba(255, 252, 247, 0.35);
+
+            transition: 0.3s ease;
+
+            cursor: pointer;
         }
 
 
-        @keyframes arrowDown {
+        .details-button a:hover {
 
-            0%, 100% {
-                transform: translateY(0);
-            }
+            transform: translateY(-2px);
 
-            50% {
-                transform: translateY(8px);
-            }
+            background: rgba(180, 154, 122, 0.15);
         }
 
 
@@ -985,18 +989,25 @@
 
         .college-map {
 
-            position: absolute;
+            position: static;
 
-            right: 1110px;
+            width: 100%;
 
-            bottom: 0;
+            margin: 25px auto 0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
 
             text-align: center;
+
+            padding: 0;
 
             z-index: 5;
 
             opacity: 0;
-            
         }
 
 
@@ -1552,20 +1563,6 @@
             }
 
 
-            .scroll-down {
-
-                margin-top: 25px;
-
-                font-size: 18px;
-            }
-
-
-            .scroll-down span {
-
-                font-size: 26px;
-            }
-
-
             .engineer-image {
 
                 width: 250px;
@@ -1639,7 +1636,7 @@
 
             .event-info-item.location {
 
-                margin-top: 55px;
+                margin-top: 25px;
             }
 
 
@@ -1659,17 +1656,25 @@
             }
 
 
+            /* صورة الكلية في الوسط تحت الكلام */
+
             .college-map {
 
-                 width: 100%;
-    margin: 35px auto 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding-left: 0;
+                position: static;
 
-                 
+                width: 100%;
+
+                margin: 25px auto 0;
+
+                display: flex;
+
+                align-items: center;
+
+                justify-content: center;
+
+                text-align: center;
+
+                padding: 0;
             }
 
 
@@ -1764,9 +1769,7 @@
                 href="#page-two"
                 onclick="showPageTwo()"
             >
-
                 انقر هنا
-
             </a>
 
         </div>
@@ -1864,13 +1867,16 @@
             </div>
 
 
-            <!-- مرر للأسفل -->
+            <!-- زر التفاصيل -->
 
-            <div class="scroll-down">
+            <div class="details-button">
 
-              مرر للأسفل لمعرفة التفاصيل
-
-                <span>↓</span>
+                <a
+                    href="#page-three"
+                    onclick="showPageThree(event)"
+                >
+                    التفاصيل
+                </a>
 
             </div>
 
@@ -2076,34 +2082,32 @@
         </div>
 
 
-    </div>
+        <!-- صورة موقع الكلية -->
 
+        <div class="college-map">
 
-
-    <!-- صورة موقع الكلية -->
-
-    <div class="college-map">
-
-        <a
-            href="https://www.google.com/maps/search/?api=1&query=كلية الهندسة جامعة طرابلس"
-            target="_blank"
-        >
-
-            <img
-                src="photo_2026-11-01_16-12-51-removebg-preview.png"
-                alt="موقع الكلية"
+            <a
+                href="https://www.google.com/maps/search/?api=1&query=كلية الهندسة جامعة طرابلس"
+                target="_blank"
             >
 
-            <div class="map-button">
+                <img
+                    src="photo_2026-11-01_16-12-51-removebg-preview.png"
+                    alt="موقع الكلية"
+                >
 
-                موقع الكلية
+                <div class="map-button">
 
-            </div>
+                    موقع الكلية
 
-        </a>
+                </div>
+
+            </a>
+
+        </div>
+
 
     </div>
-
 
 </section>
 
@@ -2152,9 +2156,7 @@ function showPageTwo() {
 
 function showPageThree(event) {
 
-    if (event) {
-        event.preventDefault();
-    }
+    event.preventDefault();
 
 
     const pageThree =
@@ -2182,69 +2184,6 @@ function showPageThree(event) {
     }, 100);
 
 }
-
-
-
-/* ==================================================
-   السحب بين الصفحة الثانية والثالثة في الموبايل
-================================================== */
-
-let touchStartY = 0;
-
-
-document.addEventListener("touchstart", function(event) {
-
-    touchStartY = event.touches[0].clientY;
-
-}, { passive: true });
-
-
-
-document.addEventListener("touchend", function(event) {
-
-    const pageTwo = document.getElementById("page-two");
-    const pageThree = document.getElementById("page-three");
-
-    const touchEndY = event.changedTouches[0].clientY;
-
-    const difference = touchEndY - touchStartY;
-
-
-    /* سحب للأعلى من الصفحة الثانية */
-
-    if (
-        pageTwo.classList.contains("show") &&
-        difference < -60
-    ) {
-
-        showPageThree();
-
-        return;
-
-    }
-
-
-    /* سحب للأسفل من الصفحة الثالثة */
-
-    if (
-        pageThree.classList.contains("show-content") &&
-        difference > 80
-    ) {
-
-        const pageTwo =
-            document.getElementById("page-two");
-
-        pageTwo.scrollIntoView({
-
-            behavior: "smooth",
-
-            block: "start"
-
-        });
-
-    }
-
-}, { passive: true });
 
 
 
